@@ -10,13 +10,8 @@ names_array = Array.new
 prices_array = Array.new
 result = Array.new
 
-names.each do |name|
-    names_array << name.text
-end
-
-prices.each do |price|
-    prices_array << price.text.delete('$,').to_f
-end
+names.each {|name| names_array << name.text}
+prices.each {|price| prices_array << price.text.delete('$,').to_f}
 
 for i in 0..prices_array.length-1
     result << {names_array[i] => prices_array[i]}
