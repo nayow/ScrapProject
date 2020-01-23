@@ -2,19 +2,25 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/"))
-names = page.xpath('//html/body/div/div/div[2]/div[1]/div[2]/div[2]/div[2]/div[3]/div/table/tbody/tr[position()<10]/td[3]/div')
-prices = page.xpath('//html/body/div/div/div[2]/div[1]/div[2]/div[2]/div[2]/div[3]/div/table/tbody/tr[position()<10]/td[5]/a')
+def crypto_scrapper
 
-names_array = Array.new
-prices_array = Array.new
-result = Array.new
+    page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/"))
+    names = page.xpath('//html/body/div/div/div[2]/div[1]/div[2]/div[2]/div[2]/div[3]/div/table/tbody/tr[*]/td[3]/div')
+    prices = page.xpath('//html/body/div/div/div[2]/div[1]/div[2]/div[2]/div[2]/div[3]/div/table/tbody/tr[*]/td[5]/a')
 
-names.each {|name| names_array << name.text}
-prices.each {|price| prices_array << price.text.delete('$,').to_f}
+    names_array = Array.new
+    prices_array = Array.new
+    result = Array.new
 
-for i in 0..prices_array.length-1
-    result << {names_array[i] => prices_array[i]}
+    names.each {|name| names_array << name.text}
+    prices.each {|price| prices_array << price.text.delete('$,').to_f}
+
+    for i in 0..prices_array.length-1
+        result << {names_array[i] => prices_array[i]}
+    end
+    # puts result
+    return result
+
 end
 
-puts result,result.class,result[0].class
+# crypto_scrapper

@@ -23,7 +23,10 @@ def get_townhall_urls
     names.each {|name| names_array << name.text.downcase.capitalize!}
 
     for i in 0..urls_array.length-1
-        result << { names_array[i] => get_townhall_email(urls_array[i]) }
+        result << {names_array[i] => get_townhall_email(urls_array[i])}
     end
-    puts result
+    # puts result
+    return result
 end
+
+# get_townhall_urls
