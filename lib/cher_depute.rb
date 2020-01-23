@@ -11,8 +11,8 @@ end
 def deputy_list
 
     page = Nokogiri::HTML(open("http://www2.assemblee-nationale.fr/deputes/liste/alphabetique"))
-    names = page.xpath('/html/body/div/div[3]/div/div/section/div/article/div[3]/div/div[3]/div[1]/ul[1]/li[*]/a')
-    urls = page.xpath('/html/body/div/div[3]/div/div/section/div/article/div[3]/div/div[3]/div[1]/ul[1]/li[*]/a/@href')
+    names = page.xpath('/html/body/div/div[3]/div/div/section/div/article/div[3]/div/div[3]/div[1]/ul[1]/li[*]/a') # limité à la première colonne de la lettre A
+    urls = page.xpath('/html/body/div/div[3]/div/div/section/div/article/div[3]/div/div[3]/div[1]/ul[1]/li[*]/a/@href') # limité à la première colonne de la lettre A
 
     names_array = Array.new
     urls_array = Array.new
@@ -24,9 +24,9 @@ def deputy_list
     for i in 0..names_array.length-1
         result << {"first_name" => names_array[i].split[0], "last_name" => names_array[i].split[1], "email" => get_email(urls_array[i])}
     end
-    # puts result
+    puts result
     return result
 
 end
 
-# deputy_list
+deputy_list
